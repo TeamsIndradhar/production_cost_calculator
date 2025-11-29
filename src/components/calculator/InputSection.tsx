@@ -12,31 +12,23 @@ interface InputSectionProps {
 
 export function InputSection({ inputs, onInputChange }: InputSectionProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="relative bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
-    >
-      {/* Glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-emerald-500/5" />
-      
+    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden">
       {/* Header */}
-      <div className="relative px-6 py-5 border-b border-white/5">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 rounded-lg">
-            <Layers className="w-5 h-5 text-blue-400" />
+      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="p-1.5 sm:p-2 bg-[#3D5A73]/10 rounded-lg sm:rounded-xl">
+            <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-[#3D5A73]" />
           </div>
           <div>
-            <h2 className="text-base font-semibold text-white">Production Costs</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Enter your batch totals</p>
+            <h2 className="text-sm sm:text-base font-semibold text-slate-800">Production Costs</h2>
+            <p className="text-[10px] sm:text-xs text-slate-500 mt-0.5">Enter your batch totals</p>
           </div>
         </div>
       </div>
 
-      {/* Inputs Grid */}
-      <div className="relative p-5">
-        <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+      {/* Inputs Grid - 2 cols on mobile, 3 cols on larger screens */}
+      <div className="p-3 sm:p-4 lg:p-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           {COST_INPUT_FIELDS.map((field, index) => (
             <motion.div
               key={field.key}
@@ -57,6 +49,6 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

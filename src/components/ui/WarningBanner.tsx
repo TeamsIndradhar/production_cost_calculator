@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, X } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { Warning } from '@/lib/types';
 
 interface WarningBannerProps {
@@ -21,10 +21,10 @@ export function WarningBanner({ warnings }: WarningBannerProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 backdrop-blur-xl"
+            className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-red-50 border border-red-200 shadow-sm"
           >
-            <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-400" />
-            <p className="flex-1 text-sm text-red-300">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-500" />
+            <p className="flex-1 text-xs sm:text-sm text-red-700">
               {warning.message}
             </p>
           </motion.div>

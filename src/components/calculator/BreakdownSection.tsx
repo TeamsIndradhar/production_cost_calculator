@@ -10,49 +10,41 @@ interface BreakdownSectionProps {
 }
 
 const breakdownItems = [
-  { key: 'rawMaterialPerPiece', label: 'Raw Material', color: '#3b82f6' },
-  { key: 'labourPerPiece', label: 'Labour', color: '#8b5cf6' },
-  { key: 'machinePerPiece', label: 'Machine', color: '#f97316' },
-  { key: 'overheadPerPiece', label: 'Overhead', color: '#14b8a6' },
+  { key: 'rawMaterialPerPiece', label: 'Raw Material', color: '#3D5A73' },
+  { key: 'labourPerPiece', label: 'Labour', color: '#E8712C' },
+  { key: 'machinePerPiece', label: 'Machine', color: '#14b8a6' },
+  { key: 'overheadPerPiece', label: 'Overhead', color: '#8b5cf6' },
   { key: 'packagingPerPiece', label: 'Packaging', color: '#ec4899' },
   { key: 'adminPerPiece', label: 'Admin', color: '#6366f1' },
-  { key: 'otherPerPiece', label: 'Other', color: '#64748b' },
+  { key: 'otherPerPiece', label: 'Other', color: '#94a3b8' },
 ] as const;
 
 export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
   const total = breakdown?.totalCostPerPiece || 0;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 }}
-      className="relative bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden h-full"
-    >
-      {/* Glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5" />
-
+    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden h-full">
       {/* Header */}
-      <div className="relative px-5 py-4 border-b border-white/5">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-purple-500/10 rounded-lg">
-            <PieChart className="w-4 h-4 text-purple-400" />
+      <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="p-1.5 sm:p-2 bg-[#E8712C]/10 rounded-lg sm:rounded-xl">
+            <PieChart className="w-4 h-4 text-[#E8712C]" />
           </div>
           <div>
-            <h2 className="text-sm font-semibold text-white">Breakdown</h2>
-            <p className="text-[10px] text-slate-500 uppercase tracking-wider">Per Piece</p>
+            <h2 className="text-sm font-semibold text-slate-800">Breakdown</h2>
+            <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Per Piece</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="relative p-4">
+      <div className="p-3 sm:p-4">
         {!breakdown ? (
-          <div className="flex items-center justify-center h-48 text-slate-500 text-xs text-center">
+          <div className="flex items-center justify-center h-32 sm:h-48 text-slate-400 text-xs text-center">
             Enter quantity to<br />see breakdown
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {breakdownItems.map((item, index) => {
               const value = breakdown[item.key];
               const percentage = total > 0 ? (value / total) * 100 : 0;
@@ -64,19 +56,19 @@ export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 * index, duration: 0.3 }}
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between mb-1 sm:mb-1.5">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       <div 
-                        className="w-1.5 h-1.5 rounded-full" 
+                        className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full flex-shrink-0" 
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="text-xs text-slate-400">{item.label}</span>
+                      <span className="text-[11px] sm:text-xs text-slate-600">{item.label}</span>
                     </div>
-                    <span className="text-xs font-medium text-white tabular-nums">
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-800 tabular-nums">
                       {formatCurrency(value)}
                     </span>
                   </div>
-                  <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-1 sm:h-1.5 bg-slate-100 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${percentage}%` }}
@@ -94,16 +86,16 @@ export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="pt-3 mt-3 border-t border-white/10"
+              className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-slate-100"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total</span>
-                <span className="text-lg font-bold text-white">{formatCurrency(total)}</span>
+                <span className="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Total</span>
+                <span className="text-lg sm:text-xl font-bold text-[#3D5A73]">{formatCurrency(total)}</span>
               </div>
             </motion.div>
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

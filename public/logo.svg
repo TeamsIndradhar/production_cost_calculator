@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Orange dot -->
+  <circle cx="138" cy="80" r="70" fill="#E8712C"/>
+  <!-- Letter i (vertical bar) -->
+  <rect x="88" y="180" width="100" height="280" rx="8" fill="#3D5A73"/>
+  <!-- Letter D -->
+  <path d="M220 180h120c88 0 160 63 160 140s-72 140-160 140H220V180z" fill="#3D5A73"/>
+  <path d="M260 220h80c66 0 120 45 120 100s-54 100-120 100h-80V220z" fill="white"/>
+</svg>

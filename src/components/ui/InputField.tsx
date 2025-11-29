@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Info } from 'lucide-react';
 
@@ -15,6 +15,14 @@ interface InputFieldProps {
   highlight?: boolean;
 }
 
+interface TooltipStyle {
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+  transform?: string;
+}
+
 export function InputField({
   label,
   value,
@@ -27,12 +35,80 @@ export function InputField({
 }: InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipStyle, setTooltipStyle] = useState<TooltipStyle>({});
+  const infoRef = useRef<SVGSVGElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/,/g, '');
     const numValue = parseFloat(rawValue) || 0;
     onChange(numValue);
   };
+
+  // Calculate optimal tooltip position with pixel-perfect boundary detection
+  const calculatePosition = useCallback(() => {
+    if (!infoRef.current) return;
+
+    const iconRect = infoRef.current.getBoundingClientRect();
+    const tooltipWidth = 200; // slightly larger than w-48 for safety
+    const tooltipHeight = 100; // approximate max height
+    const gap = 8; // gap between icon and tooltip
+    const viewportPadding = 12; // minimum distance from viewport edge
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Calculate icon center position
+    const iconCenterX = iconRect.left + iconRect.width / 2;
+    const iconTop = iconRect.top;
+    const iconBottom = iconRect.bottom;
+
+    // Determine vertical position (prefer below, use above if not enough space)
+    const spaceBelow = viewportHeight - iconBottom - gap;
+    const spaceAbove = iconTop - gap;
+    const showAbove = spaceBelow < tooltipHeight && spaceAbove > spaceBelow;
+
+    // Calculate horizontal position to keep tooltip within viewport
+    let leftPosition = iconCenterX - tooltipWidth / 2;
+    
+    // Clamp to viewport boundaries
+    if (leftPosition < viewportPadding) {
+      leftPosition = viewportPadding;
+    } else if (leftPosition + tooltipWidth > viewportWidth - viewportPadding) {
+      leftPosition = viewportWidth - tooltipWidth - viewportPadding;
+    }
+
+    // Convert to position relative to the icon's parent (the relative div)
+    const parentRect = infoRef.current.parentElement?.getBoundingClientRect();
+    if (!parentRect) return;
+
+    const relativeLeft = leftPosition - parentRect.left;
+
+    const style: TooltipStyle = {
+      left: `${relativeLeft}px`,
+    };
+
+    if (showAbove) {
+      style.bottom = `${gap + iconRect.height}px`;
+    } else {
+      style.top = `${gap + iconRect.height}px`;
+    }
+
+    setTooltipStyle(style);
+  }, []);
+
+  useEffect(() => {
+    if (showTooltip) {
+      // Small delay to ensure DOM is ready
+      requestAnimationFrame(calculatePosition);
+      window.addEventListener('resize', calculatePosition);
+      window.addEventListener('scroll', calculatePosition, true);
+    }
+    return () => {
+      window.removeEventListener('resize', calculatePosition);
+      window.removeEventListener('scroll', calculatePosition, true);
+    };
+  }, [showTooltip, calculatePosition]);
 
   return (
     <div className="group">
@@ -43,21 +119,28 @@ export function InputField({
           {label}
         </label>
         {tooltip && (
-          <div className="relative hidden sm:block">
+          <div className="relative">
             <Info
-              className="w-3 h-3 text-slate-400 cursor-help hover:text-[#3D5A73] transition-colors"
+              ref={infoRef}
+              className="w-3.5 h-3.5 text-slate-400 cursor-help hover:text-[#3D5A73] transition-colors"
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
+              onClick={() => setShowTooltip(!showTooltip)}
             />
             <AnimatePresence>
               {showTooltip && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95, y: 5 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 5 }}
-                  className="absolute z-50 right-0 top-5 w-44 sm:w-48 p-2.5 sm:p-3 text-[11px] sm:text-xs text-slate-600 bg-white rounded-lg sm:rounded-xl shadow-xl border border-slate-200"
+                  ref={tooltipRef}
+                  initial={{ opacity: 0, y: tooltipStyle.top ? -4 : 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: tooltipStyle.top ? -4 : 4 }}
+                  transition={{ duration: 0.15, ease: 'easeOut' }}
+                  style={tooltipStyle}
+                  className="absolute z-[9999] w-[200px] p-3 text-xs text-slate-600 bg-white rounded-xl shadow-2xl border border-slate-200"
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
                 >
-                  {tooltip}
+                  <div className="leading-relaxed">{tooltip}</div>
                 </motion.div>
               )}
             </AnimatePresence>

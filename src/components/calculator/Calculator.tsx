@@ -86,7 +86,7 @@ export function Calculator() {
       </header>
 
       {/* Main Content - flex-1 to push footer down */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-4 sm:py-6 lg:py-8">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 lg:py-8 overflow-x-hidden">
         {/* Warnings */}
         <AnimatePresence>
           {warnings.length > 0 && (

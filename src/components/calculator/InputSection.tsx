@@ -12,7 +12,7 @@ interface InputSectionProps {
 
 export function InputSection({ inputs, onInputChange }: InputSectionProps) {
   return (
-    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden">
+    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50">
       {/* Header */}
       <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
         <div className="flex items-center gap-2 sm:gap-3">
@@ -28,7 +28,7 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
 
       {/* Inputs Grid - 2 cols on mobile, 3 cols on larger screens */}
       <div className="p-3 sm:p-4 lg:p-5">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-5">
           {COST_INPUT_FIELDS.map((field, index) => (
             <motion.div
               key={field.key}

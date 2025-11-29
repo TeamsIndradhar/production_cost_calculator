@@ -23,7 +23,7 @@ export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
   const total = breakdown?.totalCostPerPiece || 0;
 
   return (
-    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden h-full">
+    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 h-full">
       {/* Header */}
       <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
         <div className="flex items-center gap-2 sm:gap-3">

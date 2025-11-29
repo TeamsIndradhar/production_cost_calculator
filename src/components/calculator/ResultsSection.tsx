@@ -16,7 +16,7 @@ export function ResultsSection({ results, inputs, onProfitChange }: ResultsSecti
   const hasValidData = results !== null;
 
   return (
-    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden">
+    <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50">
       {/* Header */}
       <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-orange-50/50 to-white">
         <div className="flex items-center gap-2 sm:gap-3">
@@ -32,16 +32,18 @@ export function ResultsSection({ results, inputs, onProfitChange }: ResultsSecti
 
       <div className="p-3 sm:p-4 lg:p-5 space-y-3 sm:space-y-4">
         {/* Profit Input */}
-        <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-orange-50 to-amber-50/50 border border-orange-100">
-          <InputField
-            label={PROFIT_FIELD.label}
-            value={inputs.desiredProfitPercent}
-            onChange={onProfitChange}
-            placeholder={PROFIT_FIELD.placeholder}
-            suffix={PROFIT_FIELD.suffix}
-            tooltip={PROFIT_FIELD.tooltip}
-            highlight
-          />
+        <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-orange-50 to-amber-50/50 border border-orange-100 overflow-visible">
+          <div className="w-full min-w-0">
+            <InputField
+              label={PROFIT_FIELD.label}
+              value={inputs.desiredProfitPercent}
+              onChange={onProfitChange}
+              placeholder={PROFIT_FIELD.placeholder}
+              suffix={PROFIT_FIELD.suffix}
+              tooltip={PROFIT_FIELD.tooltip}
+              highlight
+            />
+          </div>
         </div>
 
         {hasValidData ? (

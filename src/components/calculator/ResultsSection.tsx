@@ -1,18 +1,19 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CostResults, CostInputs, PROFIT_FIELD } from '@/lib/types';
-import { formatCurrency, formatPercent, formatNumber } from '@/lib/calculations';
+import { CostResults, PROFIT_FIELD } from '@/lib/types';
+import { formatCurrency, formatNumber } from '@/lib/calculations';
 import { InputField } from '@/components/ui/InputField';
 import { Sparkles, Target } from 'lucide-react';
 
 interface ResultsSectionProps {
   results: CostResults | null;
-  inputs: CostInputs;
+  productionQuantity: number;
+  desiredProfitPercent: number;
   onProfitChange: (value: number) => void;
 }
 
-export function ResultsSection({ results, inputs, onProfitChange }: ResultsSectionProps) {
+export function ResultsSection({ results, productionQuantity, desiredProfitPercent, onProfitChange }: ResultsSectionProps) {
   const hasValidData = results !== null;
 
   return (
@@ -36,7 +37,7 @@ export function ResultsSection({ results, inputs, onProfitChange }: ResultsSecti
           <div className="w-full min-w-0">
             <InputField
               label={PROFIT_FIELD.label}
-              value={inputs.desiredProfitPercent}
+              value={desiredProfitPercent}
               onChange={onProfitChange}
               placeholder={PROFIT_FIELD.placeholder}
               suffix={PROFIT_FIELD.suffix}
@@ -48,16 +49,10 @@ export function ResultsSection({ results, inputs, onProfitChange }: ResultsSecti
 
         {hasValidData ? (
           <>
-            {/* Key Metrics */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-3">
-              <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-100">
-                <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider mb-0.5 sm:mb-1">Cost/Piece</p>
-                <p className="text-sm sm:text-base font-bold text-slate-800">{formatCurrency(results.totalCostPerPiece)}</p>
-              </div>
-              <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-100">
-                <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider mb-0.5 sm:mb-1">Gross Margin</p>
-                <p className="text-sm sm:text-base font-bold text-slate-800">{formatPercent(results.grossMarginPercent)}</p>
-              </div>
+            {/* Cost Per Piece - Single metric */}
+            <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-100">
+              <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider mb-0.5 sm:mb-1">Total Cost/Piece</p>
+              <p className="text-base sm:text-lg font-bold text-slate-800">{formatCurrency(results.totalCostPerPiece)}</p>
             </div>
 
             {/* Selling Price - Featured */}
@@ -102,7 +97,7 @@ export function ResultsSection({ results, inputs, onProfitChange }: ResultsSecti
                   </div>
                   <div>
                     <p className="text-[11px] sm:text-xs text-white/90 font-medium">Total Batch Profit</p>
-                    <p className="text-[9px] sm:text-[10px] text-white/60">{formatNumber(inputs.productionQuantity)} pieces</p>
+                    <p className="text-[9px] sm:text-[10px] text-white/60">{formatNumber(productionQuantity)} pieces</p>
                   </div>
                 </div>
                 <p className="text-2xl sm:text-3xl font-bold text-white">{formatCurrency(results.totalBatchProfit)}</p>

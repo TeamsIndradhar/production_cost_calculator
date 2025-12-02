@@ -2,12 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { InputField } from '@/components/ui/InputField';
-import { CostInputs, COST_INPUT_FIELDS } from '@/lib/types';
+import { BatchInputs, BATCH_INPUT_FIELDS } from '@/lib/types';
 import { Layers } from 'lucide-react';
 
 interface InputSectionProps {
-  inputs: CostInputs;
-  onInputChange: (key: keyof CostInputs, value: number) => void;
+  inputs: BatchInputs;
+  onInputChange: (key: keyof BatchInputs, value: number) => void;
 }
 
 export function InputSection({ inputs, onInputChange }: InputSectionProps) {
@@ -20,7 +20,7 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
             <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-[#3D5A73]" />
           </div>
           <div>
-            <h2 className="text-sm sm:text-base font-semibold text-slate-800">Production Costs</h2>
+            <h2 className="text-sm sm:text-base font-semibold text-slate-800">Batch Costs</h2>
             <p className="text-[10px] sm:text-xs text-slate-500 mt-0.5">Enter your batch totals</p>
           </div>
         </div>
@@ -29,7 +29,7 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
       {/* Inputs Grid - 2 cols on mobile, 3 cols on larger screens */}
       <div className="p-3 sm:p-4 lg:p-5">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-5">
-          {COST_INPUT_FIELDS.map((field, index) => (
+          {BATCH_INPUT_FIELDS.map((field, index) => (
             <motion.div
               key={field.key}
               initial={{ opacity: 0, y: 10 }}
@@ -38,8 +38,8 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
             >
               <InputField
                 label={field.label}
-                value={inputs[field.key]}
-                onChange={(value) => onInputChange(field.key, value)}
+                value={inputs[field.key as keyof BatchInputs] as number}
+                onChange={(value) => onInputChange(field.key as keyof BatchInputs, value)}
                 placeholder={field.placeholder}
                 prefix={field.prefix}
                 suffix={field.suffix}

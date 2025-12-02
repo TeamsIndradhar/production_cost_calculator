@@ -1,5 +1,5 @@
-import { Calculator } from '@/components/calculator';
+import { HomePage } from '@/components/HomePage';
 
 export default function Home() {
-  return <Calculator />;
+  return <HomePage />;
 }

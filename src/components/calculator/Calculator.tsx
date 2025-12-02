@@ -3,18 +3,20 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { CostInputs, DEFAULT_INPUTS, EMPTY_INPUTS } from '@/lib/types';
+import Link from 'next/link';
+import { BatchInputs, EMPTY_BATCH_INPUTS } from '@/lib/types';
 import { calculateBreakdown, calculateResults, generateWarnings } from '@/lib/calculations';
 import { InputSection } from './InputSection';
 import { BreakdownSection } from './BreakdownSection';
 import { ResultsSection } from './ResultsSection';
 import { WarningBanner } from '@/components/ui/WarningBanner';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Home } from 'lucide-react';
 
 export function Calculator() {
-  const [inputs, setInputs] = useState<CostInputs>(DEFAULT_INPUTS);
+  // Start with empty inputs
+  const [inputs, setInputs] = useState<BatchInputs>(EMPTY_BATCH_INPUTS);
 
-  const handleInputChange = (key: keyof CostInputs, value: number) => {
+  const handleInputChange = (key: keyof BatchInputs, value: number) => {
     setInputs(prev => ({ ...prev, [key]: value }));
   };
 
@@ -23,7 +25,7 @@ export function Calculator() {
   };
 
   const handleReset = () => {
-    setInputs(EMPTY_INPUTS);
+    setInputs(EMPTY_BATCH_INPUTS);
   };
 
   // Calculate breakdown and results
@@ -45,42 +47,58 @@ export function Calculator() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo & Branding */}
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-2 sm:gap-3"
-            >
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
-                <Image
-                  src="/logo.svg"
-                  alt="Indradhar Consultancy"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <div className="border-l border-slate-200 pl-2 sm:pl-3">
-                <h1 className="text-sm sm:text-base font-bold text-[#3D5A73] tracking-tight leading-tight">
-                  Indradhar Consultancy
-                </h1>
-                <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest font-medium">
-                  Cost Calculator Pro
-                </p>
-              </div>
-            </motion.div>
+            <Link href="/">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
+                  <Image
+                    src="/logo.png"
+                    alt="Indradhar Consultancy"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+                <div className="border-l border-slate-200 pl-2 sm:pl-3">
+                  <h1 className="text-sm sm:text-base font-bold text-[#3D5A73] tracking-tight leading-tight">
+                    Production Cost Calculation
+                  </h1>
+                  <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest font-medium">
+                    Batch → Per-piece
+                  </p>
+                </div>
+              </motion.div>
+            </Link>
 
-            {/* Reset Button */}
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleReset}
-              className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
-            >
-              <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
-              <span>Reset</span>
-            </motion.button>
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2">
+              <Link href="/">
+                <motion.button
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
+                >
+                  <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Home</span>
+                </motion.button>
+              </Link>
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleReset}
+                className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
+              >
+                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
+                <span>Reset</span>
+              </motion.button>
+            </div>
           </div>
         </div>
       </header>
@@ -132,7 +150,8 @@ export function Calculator() {
           >
             <ResultsSection 
               results={results} 
-              inputs={inputs} 
+              productionQuantity={inputs.productionQuantity}
+              desiredProfitPercent={inputs.desiredProfitPercent}
               onProfitChange={handleProfitChange}
             />
           </motion.div>

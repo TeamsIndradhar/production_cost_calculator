@@ -8,7 +8,7 @@ import { PerPieceInputs, EMPTY_PERPIECE_INPUTS, PERPIECE_COST_FIELDS, PROFIT_FIE
 import { calculatePerPieceCost, calculateSellingPrice, calculateBatchTotals, generateWarningsPerPiece, formatCurrency, formatNumber } from '@/lib/calculations';
 import { InputField } from '@/components/ui/InputField';
 import { WarningBanner } from '@/components/ui/WarningBanner';
-import { RotateCcw, Home, Layers, PieChart, Target, Sparkles, Package, TrendingUp } from 'lucide-react';
+import { RotateCcw, Home, Layers, Target, Sparkles, Package, Wallet, TrendingUp } from 'lucide-react';
 
 export function PerPieceCalculator() {
   const [inputs, setInputs] = useState<PerPieceInputs>(EMPTY_PERPIECE_INPUTS);
@@ -57,39 +57,39 @@ export function PerPieceCalculator() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/90 border-b border-slate-200/60 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            <Link href="/">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6">
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-2">
+            <Link href="/" className="flex-1 min-w-0">
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               >
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
+                <div className="relative w-7 h-7 sm:w-10 sm:h-10 flex-shrink-0">
                   <Image src="/logo.png" alt="Indradhar Consultancy" fill className="object-contain" priority />
                 </div>
-                <div className="border-l border-slate-200 pl-2 sm:pl-3">
-                  <h1 className="text-sm sm:text-base font-bold text-[#3D5A73] tracking-tight leading-tight">
-                    Production Cost Calculation
+                <div className="border-l border-slate-200 pl-2 min-w-0 flex-1">
+                  <h1 className="text-[11px] sm:text-base font-bold text-[#3D5A73] tracking-tight leading-tight line-clamp-1">
+                    Cost Calculator
                   </h1>
-                  <p className="text-[9px] sm:text-[10px] text-[#E8712C] uppercase tracking-widest font-medium">
+                  <p className="text-[8px] sm:text-[10px] text-[#E8712C] uppercase tracking-wider font-medium">
                     Per-piece → Batch
                   </p>
                 </div>
               </motion.div>
             </Link>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <Link href="/">
                 <motion.button
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
+                  className="group flex items-center justify-center p-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
                 >
-                  <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Home</span>
+                  <Home className="w-4 h-4" />
+                  <span className="hidden sm:inline sm:ml-2">Home</span>
                 </motion.button>
               </Link>
               <motion.button
@@ -98,10 +98,10 @@ export function PerPieceCalculator() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleReset}
-                className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#E8712C] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#E8712C]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
+                className="group flex items-center justify-center p-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#E8712C] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#E8712C]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
               >
-                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
-                <span>Reset</span>
+                <RotateCcw className="w-4 h-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
+                <span className="hidden sm:inline sm:ml-2">Reset</span>
               </motion.button>
             </div>
           </div>
@@ -128,18 +128,23 @@ export function PerPieceCalculator() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
             className="md:col-span-1 xl:col-span-4"
           >
-            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50">
+            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden h-full">
               <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-orange-50/50 to-white">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="p-1.5 sm:p-2 bg-[#E8712C]/10 rounded-lg sm:rounded-xl">
+                  <motion.div 
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
+                    className="p-1.5 sm:p-2 bg-[#E8712C]/10 rounded-lg sm:rounded-xl"
+                  >
                     <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-[#E8712C]" />
-                  </div>
+                  </motion.div>
                   <div>
-                    <h2 className="text-sm sm:text-base font-semibold text-slate-800">Per-Piece Costs</h2>
-                    <p className="text-[10px] sm:text-xs text-slate-500 mt-0.5">Step 1: Enter cost per piece</p>
+                    <h2 className="text-xs sm:text-base font-semibold text-slate-800">Per-Piece Costs</h2>
+                    <p className="text-[9px] sm:text-xs text-slate-500 mt-0.5">Step 1: Enter cost per piece</p>
                   </div>
                 </div>
               </div>
@@ -149,9 +154,9 @@ export function PerPieceCalculator() {
                   {PERPIECE_COST_FIELDS.map((field: InputFieldConfig, index: number) => (
                     <motion.div
                       key={field.key}
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.04, duration: 0.3 }}
+                      transition={{ delay: 0.15 + index * 0.05, duration: 0.3, ease: "easeOut" }}
                     >
                       <InputField
                         label={field.label}
@@ -173,25 +178,35 @@ export function PerPieceCalculator() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
             className="md:col-span-1 xl:col-span-4"
           >
-            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 h-full">
+            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden h-full">
               <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-orange-50/50 to-white">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="p-1.5 sm:p-2 bg-[#E8712C]/10 rounded-lg sm:rounded-xl">
+                  <motion.div 
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
+                    className="p-1.5 sm:p-2 bg-[#E8712C]/10 rounded-lg sm:rounded-xl"
+                  >
                     <Target className="w-4 h-4 text-[#E8712C]" />
-                  </div>
+                  </motion.div>
                   <div>
-                    <h2 className="text-sm font-semibold text-slate-800">Pricing</h2>
-                    <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Step 2: Set profit margin</p>
+                    <h2 className="text-xs sm:text-sm font-semibold text-slate-800">Pricing</h2>
+                    <p className="text-[8px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Step 2: Set profit margin</p>
                   </div>
                 </div>
               </div>
 
               <div className="p-3 sm:p-4 lg:p-5 space-y-3 sm:space-y-4">
                 {/* Profit Input */}
-                <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-orange-50 to-amber-50/50 border border-orange-100 overflow-visible">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                  className="p-3 sm:p-4 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50/50 border border-orange-100 overflow-visible"
+                >
                   <div className="w-full min-w-0">
                     <InputField
                       label={PROFIT_FIELD.label}
@@ -203,36 +218,42 @@ export function PerPieceCalculator() {
                       highlight
                     />
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Cost Per Piece */}
-                <div className="p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-100">
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider mb-0.5 sm:mb-1">Total Cost/Piece</p>
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-100"
+                >
+                  <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider mb-0.5 sm:mb-1">Cost Per Piece</p>
                   <p className="text-base sm:text-lg font-bold text-slate-800">
                     {hasPerPieceCosts ? formatCurrency(breakdown.totalCostPerPiece) : '—'}
                   </p>
-                </div>
+                </motion.div>
 
-                {/* Selling Price */}
+                {/* Selling Price Per Piece */}
                 <motion.div
-                  initial={{ scale: 0.98 }}
-                  animate={{ scale: 1 }}
-                  className="relative p-4 sm:p-5 rounded-lg sm:rounded-xl overflow-hidden"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.45, type: "spring", stiffness: 150 }}
+                  className="relative p-4 sm:p-5 rounded-xl sm:rounded-2xl overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#3D5A73] to-[#4a6d8a]" />
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_50%)]" />
                   
                   <div className="relative">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
                       <div>
-                        <p className="text-[10px] sm:text-xs text-white/70 mb-0.5 sm:mb-1">Selling Price</p>
-                        <p className="text-xl sm:text-2xl font-bold text-white">
+                        <p className="text-[9px] sm:text-xs text-white/70 mb-1">Selling Price/Piece</p>
+                        <p className="text-lg sm:text-2xl font-bold text-white">
                           {hasPerPieceCosts ? formatCurrency(pricing.sellingPrice) : '—'}
                         </p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-[10px] sm:text-xs text-white/70 mb-0.5 sm:mb-1">Profit/Piece</p>
-                        <p className="text-base sm:text-lg font-semibold text-white">
+                      <div className="sm:text-right">
+                        <p className="text-[9px] sm:text-xs text-white/70 mb-1">Profit/Piece</p>
+                        <p className="text-sm sm:text-lg font-semibold text-white">
                           {hasPerPieceCosts ? formatCurrency(pricing.profitPerPiece) : '—'}
                         </p>
                       </div>
@@ -247,25 +268,35 @@ export function PerPieceCalculator() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
             className="md:col-span-2 xl:col-span-4"
           >
-            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 h-full">
+            <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm shadow-slate-200/50 overflow-hidden h-full">
               <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="p-1.5 sm:p-2 bg-[#3D5A73]/10 rounded-lg sm:rounded-xl">
+                  <motion.div 
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.4 }}
+                    className="p-1.5 sm:p-2 bg-[#3D5A73]/10 rounded-lg sm:rounded-xl"
+                  >
                     <Package className="w-4 h-4 text-[#3D5A73]" />
-                  </div>
+                  </motion.div>
                   <div>
-                    <h2 className="text-sm font-semibold text-slate-800">Batch Calculation</h2>
-                    <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Step 3: Enter batch quantity</p>
+                    <h2 className="text-xs sm:text-sm font-semibold text-slate-800">Batch Calculation</h2>
+                    <p className="text-[8px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Step 3: Enter quantity</p>
                   </div>
                 </div>
               </div>
 
               <div className="p-3 sm:p-4 lg:p-5 space-y-3 sm:space-y-4">
                 {/* Quantity Input */}
-                <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-slate-50 to-blue-50/50 border border-slate-200 overflow-visible">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="p-3 sm:p-4 rounded-xl bg-gradient-to-br from-slate-50 to-blue-50/50 border border-slate-200 overflow-visible"
+                >
                   <div className="w-full min-w-0">
                     <InputField
                       label={QUANTITY_FIELD.label}
@@ -276,44 +307,66 @@ export function PerPieceCalculator() {
                       tooltip={QUANTITY_FIELD.tooltip}
                     />
                   </div>
-                </div>
+                </motion.div>
 
-                {batchTotals ? (
-                  <>
-                    {/* Batch Totals Breakdown */}
-                    <BatchTotalsSection batchTotals={batchTotals} />
-
-                    {/* Total Batch Profit */}
+                <AnimatePresence mode="wait">
+                  {batchTotals ? (
                     <motion.div
+                      key="results"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-3 sm:space-y-4"
+                    >
+                      {/* Batch Totals Breakdown */}
+                      <BatchTotalsSection batchTotals={batchTotals} />
+
+                      {/* Your Batch Profit - Featured */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2, type: "spring", stiffness: 150 }}
+                        className="relative p-4 sm:p-5 rounded-xl sm:rounded-2xl overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#E8712C] via-[#f08040] to-[#f59e0b]" />
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.15),transparent_50%)]" />
+                        
+                        <div className="relative">
+                          <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                            <motion.div 
+                              animate={{ rotate: [0, 10, -10, 0] }}
+                              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                              className="p-1.5 sm:p-2 bg-white/20 rounded-lg flex-shrink-0"
+                            >
+                              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                            </motion.div>
+                            <div className="min-w-0">
+                              <p className="text-[10px] sm:text-xs text-white/90 font-medium leading-tight">Your Batch Profit</p>
+                              <p className="text-[8px] sm:text-[10px] text-white/60">{formatNumber(inputs.productionQuantity)} pieces</p>
+                            </div>
+                          </div>
+                          <p className="text-xl sm:text-3xl font-bold text-white">{formatCurrency(batchTotals.totalBatchProfit)}</p>
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      key="empty"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 }}
-                      className="relative p-4 sm:p-5 rounded-lg sm:rounded-xl overflow-hidden"
+                      exit={{ opacity: 0 }}
+                      className="flex flex-col items-center justify-center h-32 sm:h-40 text-slate-400 text-xs text-center"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#E8712C] via-[#f08040] to-[#f59e0b]" />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.15),transparent_50%)]" />
-                      
-                      <div className="relative">
-                        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                          <div className="p-1.5 sm:p-2 bg-white/20 rounded-lg">
-                            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                          </div>
-                          <div>
-                            <p className="text-[11px] sm:text-xs text-white/90 font-medium">Total Batch Profit</p>
-                            <p className="text-[9px] sm:text-[10px] text-white/60">{formatNumber(inputs.productionQuantity)} pieces</p>
-                          </div>
-                        </div>
-                        <p className="text-2xl sm:text-3xl font-bold text-white">{formatCurrency(batchTotals.totalBatchProfit)}</p>
-                      </div>
+                      <Wallet className="w-8 h-8 mb-2 text-slate-300" />
+                      <p>
+                        {hasPerPieceCosts 
+                          ? 'Enter batch quantity to see totals'
+                          : 'Enter per-piece costs first'}
+                      </p>
                     </motion.div>
-                  </>
-                ) : (
-                  <div className="flex items-center justify-center h-32 sm:h-40 text-slate-400 text-xs text-center">
-                    {hasPerPieceCosts 
-                      ? 'Enter batch quantity to see totals'
-                      : 'Enter per-piece costs first'}
-                  </div>
-                )}
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>
@@ -334,7 +387,7 @@ export function PerPieceCalculator() {
   );
 }
 
-// Batch Totals display component
+// Batch Totals display component with user-friendly labels
 function BatchTotalsSection({ batchTotals }: { batchTotals: BatchTotals }) {
   const items = [
     { key: 'rawMaterialTotal', label: 'Raw Material', color: '#3D5A73' },
@@ -346,43 +399,71 @@ function BatchTotalsSection({ batchTotals }: { batchTotals: BatchTotals }) {
     { key: 'otherTotal', label: 'Other', color: '#94a3b8' },
   ] as const;
 
+  // Filter out zero values for display
+  const activeItems = items.filter(item => batchTotals[item.key] > 0);
+
   return (
-    <div className="space-y-2">
-      {/* Cost breakdown */}
-      <div className="grid grid-cols-2 gap-2">
-        {items.map((item, index) => {
-          const value = batchTotals[item.key];
-          if (value === 0) return null;
-          return (
+    <div className="space-y-3">
+      {/* Cost breakdown - collapsible grid */}
+      {activeItems.length > 0 && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="grid grid-cols-2 gap-2"
+        >
+          {activeItems.map((item, index) => (
             <motion.div
               key={item.key}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.03 * index, duration: 0.2 }}
-              className="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-100"
+              className="flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-100 hover:bg-slate-100 transition-colors"
             >
               <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.05 * index, type: "spring" }}
+                  className="w-2 h-2 rounded-full flex-shrink-0" 
+                  style={{ backgroundColor: item.color }} 
+                />
                 <span className="text-[10px] sm:text-xs text-slate-600">{item.label}</span>
               </div>
               <span className="text-[10px] sm:text-xs font-semibold text-slate-800 tabular-nums">
-                {formatCurrency(value)}
+                {formatCurrency(batchTotals[item.key])}
               </span>
             </motion.div>
-          );
-        })}
-      </div>
+          ))}
+        </motion.div>
+      )}
 
-      {/* Summary row */}
-      <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
-        <div className="p-2 rounded-lg bg-slate-100 border border-slate-200">
-          <p className="text-[9px] text-slate-500 uppercase tracking-wider mb-0.5">Total Batch Cost</p>
-          <p className="text-sm font-bold text-slate-800">{formatCurrency(batchTotals.totalBatchCost)}</p>
-        </div>
-        <div className="p-2 rounded-lg bg-green-50 border border-green-100">
-          <p className="text-[9px] text-green-600 uppercase tracking-wider mb-0.5">Total Revenue</p>
-          <p className="text-sm font-bold text-green-700">{formatCurrency(batchTotals.totalRevenue)}</p>
-        </div>
+      {/* Summary cards */}
+      <div className="space-y-2 pt-2 border-t border-slate-100">
+        {/* Total Batch Cost Without Profit */}
+        <motion.div 
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="p-3 rounded-xl bg-gradient-to-r from-slate-100 to-slate-50 border border-slate-200"
+        >
+          <div className="flex flex-col gap-1">
+            <p className="text-[10px] sm:text-xs font-semibold text-slate-700 leading-tight">Total Batch Cost Without Profit</p>
+            <p className="text-lg sm:text-xl font-bold text-slate-800">{formatCurrency(batchTotals.totalBatchCost)}</p>
+          </div>
+        </motion.div>
+
+        {/* Total Batch Cost with Profit */}
+        <motion.div 
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="p-3 rounded-xl bg-gradient-to-r from-emerald-100 to-green-50 border border-emerald-200"
+        >
+          <div className="flex flex-col gap-1">
+            <p className="text-[10px] sm:text-xs font-semibold text-emerald-700 leading-tight">Total Batch Cost with Profit</p>
+            <p className="text-lg sm:text-xl font-bold text-emerald-700">{formatCurrency(batchTotals.totalRevenue)}</p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

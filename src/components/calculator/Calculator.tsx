@@ -44,16 +44,16 @@ export function Calculator() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/90 border-b border-slate-200/60 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6">
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-2">
             {/* Logo & Branding */}
-            <Link href="/">
+            <Link href="/" className="flex-1 min-w-0">
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               >
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
+                <div className="relative w-7 h-7 sm:w-10 sm:h-10 flex-shrink-0">
                   <Image
                     src="/logo.png"
                     alt="Indradhar Consultancy"
@@ -62,11 +62,11 @@ export function Calculator() {
                     priority
                   />
                 </div>
-                <div className="border-l border-slate-200 pl-2 sm:pl-3">
-                  <h1 className="text-sm sm:text-base font-bold text-[#3D5A73] tracking-tight leading-tight">
-                    Production Cost Calculation
+                <div className="border-l border-slate-200 pl-2 min-w-0 flex-1">
+                  <h1 className="text-[11px] sm:text-base font-bold text-[#3D5A73] tracking-tight leading-tight line-clamp-1">
+                    Cost Calculator
                   </h1>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest font-medium">
+                  <p className="text-[8px] sm:text-[10px] text-slate-500 uppercase tracking-wider font-medium">
                     Batch → Per-piece
                   </p>
                 </div>
@@ -74,17 +74,17 @@ export function Calculator() {
             </Link>
 
             {/* Action Buttons */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <Link href="/">
                 <motion.button
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
+                  className="group flex items-center justify-center p-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
                 >
-                  <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Home</span>
+                  <Home className="w-4 h-4" />
+                  <span className="hidden sm:inline sm:ml-2">Home</span>
                 </motion.button>
               </Link>
               <motion.button
@@ -93,10 +93,10 @@ export function Calculator() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleReset}
-                className="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#3D5A73] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#3D5A73]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
+                className="group flex items-center justify-center p-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 hover:text-[#E8712C] bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#E8712C]/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none"
               >
-                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
-                <span>Reset</span>
+                <RotateCcw className="w-4 h-4 group-hover:rotate-[-45deg] transition-transform duration-300" />
+                <span className="hidden sm:inline sm:ml-2">Reset</span>
               </motion.button>
             </div>
           </div>
@@ -125,7 +125,7 @@ export function Calculator() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
             className="md:col-span-2 xl:col-span-5"
           >
             <InputSection inputs={inputs} onInputChange={handleInputChange} />
@@ -135,7 +135,7 @@ export function Calculator() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
             className="md:col-span-1 xl:col-span-3"
           >
             <BreakdownSection breakdown={breakdown} />
@@ -145,7 +145,7 @@ export function Calculator() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
             className="md:col-span-1 xl:col-span-4"
           >
             <ResultsSection 

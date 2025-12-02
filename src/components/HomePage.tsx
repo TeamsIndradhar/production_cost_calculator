@@ -63,7 +63,7 @@ export function HomePage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
           >
-            {/* Option A: Batch → Per-piece */} 
+            {/* Option A: Batch → Per-piece */}   
             <Link href="/batch-to-perpiece">
               <motion.div
                 whileHover={{ scale: 1.02, y: -2 }}

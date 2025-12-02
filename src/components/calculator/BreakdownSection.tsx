@@ -31,8 +31,8 @@ export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
             <PieChart className="w-4 h-4 text-[#E8712C]" />
           </div>
           <div>
-            <h2 className="text-sm font-semibold text-slate-800">Breakdown</h2>
-            <p className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Per Piece</p>
+            <h2 className="text-xs sm:text-sm font-semibold text-slate-800">Breakdown</h2>
+            <p className="text-[8px] sm:text-[10px] text-slate-500 uppercase tracking-wider">Per Piece</p>
           </div>
         </div>
       </div>
@@ -62,9 +62,9 @@ export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
                         className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full flex-shrink-0" 
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="text-[11px] sm:text-xs text-slate-600">{item.label}</span>
+                      <span className="text-[10px] sm:text-xs text-slate-600">{item.label}</span>
                     </div>
-                    <span className="text-[11px] sm:text-xs font-semibold text-slate-800 tabular-nums">
+                    <span className="text-[10px] sm:text-xs font-semibold text-slate-800 tabular-nums">
                       {formatCurrency(value)}
                     </span>
                   </div>
@@ -89,8 +89,8 @@ export function BreakdownSection({ breakdown }: BreakdownSectionProps) {
               className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-slate-100"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Total</span>
-                <span className="text-lg sm:text-xl font-bold text-[#3D5A73]">{formatCurrency(total)}</span>
+                <span className="text-[9px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Total</span>
+                <span className="text-base sm:text-xl font-bold text-[#3D5A73]">{formatCurrency(total)}</span>
               </div>
             </motion.div>
           </div>

@@ -20,8 +20,8 @@ export function InputSection({ inputs, onInputChange }: InputSectionProps) {
             <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-[#3D5A73]" />
           </div>
           <div>
-            <h2 className="text-sm sm:text-base font-semibold text-slate-800">Batch Costs</h2>
-            <p className="text-[10px] sm:text-xs text-slate-500 mt-0.5">Enter your batch totals</p>
+            <h2 className="text-xs sm:text-base font-semibold text-slate-800">Batch Costs</h2>
+            <p className="text-[9px] sm:text-xs text-slate-500 mt-0.5">Enter your batch totals</p>
           </div>
         </div>
       </div>
